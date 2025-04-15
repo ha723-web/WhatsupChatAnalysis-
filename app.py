@@ -120,23 +120,24 @@ def show_analysis(users, messages, dates):
     ax_wd.set_ylabel("Message Count")
     st.pyplot(fig_wd)
 
-    # === Hourly Activity ===
+      # === Hourly Activity ===
     st.subheader("⏰ Hourly Activity")
 
-    # User input: filter by hour
+    # User input to filter hours
     max_hour = st.slider("Select the end hour for activity visualization (24-hour format)", min_value=0, max_value=23, value=23)
 
     df = pd.DataFrame({"user": users, "message": messages, "datetime": dates})
     df["hour"] = df["datetime"].dt.hour
 
-    # Filter based on user input
+    # Filter by user-selected hour
     filtered_df = df[df["hour"] <= max_hour]
 
     fig_hr, ax_hr = plt.subplots()
     filtered_df["hour"].value_counts().sort_index().plot(kind="bar", ax=ax_hr)
     ax_hr.set_xlabel("Hour of Day")
     ax_hr.set_ylabel("Message Count")
-   st.pyplot(fig_hr)
+    st.pyplot(fig_hr)
+
 
 
 # === Main Flow ===
